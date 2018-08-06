@@ -1,0 +1,14 @@
+  Servlet 流程点 : 用户发送请求 -- TOMCAT解析(service.xml) -- WEB.XML进行解析对应的路径名字 --查找URL地址
+                   找到对应的类 -- 判断Servlet实例缓存池---使用反射字节码创建对象(Servlet obj = Class.forName("全限定名字").newInstance) --
+				   放置到缓存池子中.(Map方式放置 key 名字 value 是对象)
+                   调用Init 方法 config --创建req,resp 对象
+				   调用service方法 
+   (ServletConfig 对象去获取config Servlet对象是进行生命周期的调用)   
+   servlet : session  
+              request
+              application 所有的客户端在访问服务器时都共享同一个ServletContext对象
+              (ServletContext .setAttribute)
+              			  
+			(HTTPService里面有doget do Post ) 如果自己实现了service就拿不到dopost,doGet 方法 需要同时重写
+			
+						  
