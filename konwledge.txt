@@ -4,11 +4,20 @@
                    调用Init 方法 config --创建req,resp 对象
 				   调用service方法 
    (ServletConfig 对象去获取config Servlet对象是进行生命周期的调用)   
-   servlet : session  
+   servlet :  session  
               request
               application 所有的客户端在访问服务器时都共享同一个ServletContext对象
               (ServletContext .setAttribute)
               			  
 			(HTTPService里面有doget do Post ) 如果自己实现了service就拿不到dopost,doGet 方法 需要同时重写
-			
-						  
+			 (请求转发与重定向) 请求转发只有一个请求,重定向有两个请求
+			                    请求转发地址栏不变,可以访问WEB/INF下面的东西 重定向就是在输入框里重新输入新地址 与原来的请求没关系
+								请求无法跨域,重定向www.sun.com--> www.oracle.com 可以跨域
+             
+  了解Tomcat 内存意识溢出调整 部署方式
+  了解Cookie的使用 了解session的使用
+  了解jsp --可以和servlet形成动态的页面 HTML 完全是废材  jsp本质上就是servlet (以前每次请求需要通过write拼接写html代码的方式)  
+ 	  输入jsp页面 --JspServlet会翻译成java 继承于 JspBase ,而JspBase继承于HttpServlet 
+	 (jsp三大指令)	--page 用于import. include 用于导入文件 taglib 导入标签		  
+	  jsp体现了 servlet 与 动态页面责任分离的思想 servlet做跳转 ,jsp做页面
+	  
