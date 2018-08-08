@@ -20,4 +20,59 @@
  	  输入jsp页面 --JspServlet会翻译成java 继承于 JspBase ,而JspBase继承于HttpServlet 
 	 (jsp三大指令)	--page 用于import. include 用于导入文件 taglib 导入标签		  
 	  jsp体现了 servlet 与 动态页面责任分离的思想 servlet做跳转 ,jsp做页面
-	  
+  
+   网页状态:200(成功)  204(成功没内容) 500(内部服务器错误)  301(重定向到新页面)   
+            400(不知道这是啥东西,语法参数错误) 304(缓存了,文件没变化)
+	
+
+	
+	
+  数据库 : MySql   --隔离机制 脏读 不可重复读  还有2个XX
+           1 查询(直查,排序查 ASC/DESC) 2 过滤(AND~OR||BETWEEN AND || IN ) 
+		   3 分页limit(,) 4 聚集(COUNT~MAX~MIN~SUM~AVG) // SELECT MAX(column_name) FROM table_name;
+		   5 多条件查询 SELECT ProductName, Price FROM Products WHERE Price>(SELECT AVG(Price) FROM Products); 
+  
+  工具类 : 熟悉 IDEA,git %Maven(Maven部署 linux 部署)%  w3cSchool,官网文档等查询利器.
+  
+  框架 :   Hibrenate (Session中有一级缓存, evict 清除指定的东西  
+                     二级缓存 放置在sessionFactory中,session关闭后仍然可以访问 需要主动的设置 可读可修改)
+				     对象的状态:
+           Spring (IOC AOP DI)  三种注入方式  我只会2个 一个是SET 另一个是拿到ACT get"XX" 
+           (是利用接口而不是类实现的-如代理模式)                      各司其职 --AOP: 面向了切面编程 一辆车变成一个轮子 一个框架 每个人只用去弄好其他几部分 拼接起来即可.			
+			(低侵入)
+		   Struts2 : Why ? MVC思想  以前需要EL表达式 转化java代码 ,现在有了ORNL	
+                           ServletActionContext.getRequest(),ServletActionContext.getRequest.getSession()
+				
+   
+   JavaScript:脚本语言,可以直接嵌入HTML页面形成交互.
+              DOM 浏览器模型   打字游戏
+			  
+	Ajax     :局部更新页面
+    JSON      :一种数据格式 ,用于与JavaScript整合 
+             --字符串转化 为 var json = eval("("+str+")"); json 格式的对象
+	JQuery   : 是一个框架 ${等方式} 不需要去DOM 格式获取特定网页上的东西
+				是对DOM 对象的包装 -但是无法混用 调用JQuery 其实调用的是DOM 底层 
+			  DOM对象--->jQuery对象:$(DOM对象);
+			  post请求默认为异步,可以设置为同步提交 在ajax.setup里面 false 需要同步的时候同步提交(积分..没积分下面设么都不让你搞.)
+			  
+
+			
+Projects  : 1  Shopping
+               project using tech :Redis,抽取公共页面,优化页面,Ajax查询用户是否存在
+                                  #Problem: if you use redis ,when you update categolry , you must also delete the redis =null, then you can find the update message ->categolryServiceImpl addCart(){ also check the jedis , del the allcart}
+			                      #Problem: back managerment the picture, you must push the picture cart /1/2/3/ or /1/2 categolry to mini the press
+			   login : if(user) -> index : show user.username
+			           if(autoLogin) cookie : save  {autoLogin,"user.username + user.password"} 
+               Index : "SELECT * FROM product WHERE is_hot=? and pflag = ? order by pdate desc limit ?"; find HOT AND NEW 
+               Cart : One cart  -> many cartItem 
+			   Order : one Order  - > many orderItem  after order submit ,clear the cart
+               Payment  : choose your payway                
+			   
+           		
+
+			2  crawling : 	
+ 			   
+			      
+ 
+				
+			
