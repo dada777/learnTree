@@ -23,7 +23,7 @@
   
    网页状态:200(成功)  204(成功没内容) 500(内部服务器错误)  301(重定向到新页面)   
             400(不知道这是啥东西,语法参数错误) 304(缓存了,文件没变化)
-	
+	           HTTP Status 500  : 由于外键约束无法删除会造成服务器错误..
 
 	
 	
@@ -67,12 +67,37 @@ Projects  : 1  Shopping
                Cart : One cart  -> many cartItem 
 			   Order : one Order  - > many orderItem  after order submit ,clear the cart
                Payment  : choose your payway                
+			   类别下面是商品 : 由于没有关联起来,外键约束无法删除类别
 			   
            		
 
-			2  crawling : 	
- 			   
-			      
- 
+CRM         :遇到最多的就是Hibrenate没有配置完全 级联的删除东西无法删除 
+              Customer 没有配置saleVisit造成 删除不掉 实际上 customer 不需要去管理visit的人 visit 自动找上门来 
+              解决的方法 :在Customer里面 放置一大堆的saleVist 用于解决 与linkMan 一样 (cascade = delete ) 级联的删除
+			                                                                          (ca)         
+             cascade : classes  AND students  (save-update using classes.getStudents change students will also change students 表)
+			 WHEN classes.add(Students) cascade create students 表			  
+ 			 
+			 cascade 是维护 除了 外键 students 其余的都 会管
+			 inverse 是维护 主键 关系  其余students 属性不理他
+			 
+			 关联的时候由于两方的表建 名字不一致导致 无法得到数据 MANY 方为visit_cust_id , one 方设置的为 cust_salevist_id ...
+			       
+             比如 : 
+		     UPDATE cascade = all inverse = true (级联把student数据存入 除了id ) update 没有配置saleVisit造 (insert into user (user,groupid ==null))
+			        cascade = all inverse = false(级联把student数据存入) 控制没有反转 同时送佛送到西  update 下面的东西 把id 插进去 (update user (set groupid= XX)where student id =X)
+					cascade = false inverse = true (没student表对象 没关联数据 空空惨的不行)只进行自己的操作
+					cascade = false inverse = false(没对象, 我关联关系) 对象都没有 关联关系?? 女朋友都没有怎么做点什么.. 异常 报错!!
+			 
+            DELETE  cascade  =none  inverse = false (不删除子项 , 关系管理一下 , 把子所有的外键设置为null) 
+			        先 update user  set groupid=null where groupid=? 一次性全改
+					
+					cascade  =all   inverse = false(又空,又删除 ) 拆迁户一次型全带走....
+					
+					cascade  =none  inverse =true (佛系删除 不管 又不理) 根本删除不了 
+					
+					cascade  =all   inverse =true ()  全部带走.. 先关系不用维护 没啥问题 子类的跟脚id 可以带走 父类再带走
+					
+					
 				
 			
