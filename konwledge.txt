@@ -98,6 +98,63 @@ CRM         :遇到最多的就是Hibrenate没有配置完全 级联的删除东
 					
 					cascade  =all   inverse =true ()  全部带走.. 先关系不用维护 没啥问题 子类的跟脚id 可以带走 父类再带走
 					
-					
-				
+	
+	
+	
+	
+	
+	
+	SpringMVC: mapper likes dao 层 
+	           pojp likes domain层
+			   controller likes action层
+			   service same
+			   
+			   ModelAndView 传递的是参数的属性.
+
+			   
+			   
+SomeBugs: PYG 增删阶段由于传入参数错误,?id=XX,实际为?ids=XX; 这里说明很有必要在参数错误时候Try-Catch一下
+          项目InteliJ IDEA 部署时候与MAVEN 整合,出现PARENT 与 son 的依赖关系一头雾水, 又是MAVEN 又是IDEA 
+		                                        -- 分布式项目直接导入IDEA还是不会搞....
+		                                        -- 中央仓库无端Zookeeper版本号不对 ,其实Linux端与Service端版本不一致没问题,Linux主要是运行它
+			                                    (这里是maven provy 或者没网的原因 导致无法下载,mirror配置也错误 setting.xml中注释在notePad里不一定是注释  建议重新清空项目)
+			                                    
+												 (今天遇到一个巨坑-- spring-secrity 完全没法导入..需要把lib重新删除了再导入
+												 由于安全是自定义的一个version,与Spring的固定version不同~!
+												 花费了大量时间~~!!! IDEA 的BUG 编译器的BUG !!!
+												 pom文件修改却没有触发自动重新载入的动作
+												 手动删除Project Settings里面的Libraries内容；
+在Maven Project的试图里clean一下，删除之前编译过的文件；)
+
+
+			 
+       		   该项目依赖关系已经over like :
+			   Linux 在USing 网络时候出现重启重新更换网段 -  dao:application.xml  三处都需要网段支持
+                                                             (CONTROL)WEB层: springMvc.xml   
+                                                             springMvc.xml     															 
+          		(POM:pojo)  
+				DAO:放置Mybatis Mapper  application.xml(database,scanner mapper)
+	            (POM:interface)
+				WEB:放置  
+				         dubbo : 当前项目的名字         java Controller                       WEB-INF--XX.html
+			                     zookeeper  用于去Service对接
+								 annotation-controller 给SpringMvc管理
+								 
+				pojo:放置UserMapper 
+
+				(POM:pojo)
+		   interface:放置调用接口   
+		   
+		         (POM:TOMCAT dao,interface)
+		     service:放置 
+			                 dubbo:当前项目名字     application
+						      zookeeper  与WEB对接
+							  annotation-serviceImpl 给SpringMvc管理
+收获: 初步猜测 DAO SERVICE WEB INTERFACT 时候 借助于关系大胆猜测XML,JAVA编译文件内容.
+      angularJs 前段MVC 分离技术         
+                 			
+			   
+	MAVEN TbBrand class not find exception (reason???)  后端idf放置错误,导致id没有 entity为Json格式 储存{specification :1 ,specificationList:2} 一项一项罗列 
+    solution : clean the parentMaven	                   
+			   
 			
